@@ -11,6 +11,7 @@
 
 .virtual_keyboard_toggle {
   padding: 5px;
+  visibility: hidden;
 }
 
 .virtual_keyboard {

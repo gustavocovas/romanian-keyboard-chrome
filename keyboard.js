@@ -83,6 +83,8 @@ function createVirtualKeyboardToggle(inputElement) {
   });
 
   inputWrapper.appendChild(toggleAnchor);
+
+  return toggle;
 }
 
 function onVirtualKeyboardToggleClick(toggleAnchor, element) {
@@ -96,19 +98,16 @@ function onVirtualKeyboardToggleClick(toggleAnchor, element) {
 let inputs = document.getElementsByTagName("input");
 
 for (let input of inputs) {
-  input.addEventListener("mouseenter", () => {
-    console.log("mouseenter");
-    if (!input.parentNode.id.startsWith(wrapperPrefix)) {
-      createVirtualKeyboardToggle(input);
-    }
+  let toggle = createVirtualKeyboardToggle(input);
+
+  input.parentElement.addEventListener("mouseenter", () => {
+    toggle.style.visibility = "visible";
   });
 
-  input.addEventListener("mouseout", () => {
-    console.log("mouseout");
+  input.parentElement.addEventListener("mouseleave", () => {
     if (virtualKeyboardIsOpen) {
       closeVirtualKeyboard();
     }
-    let parent = input.parentElement;
-    parent.replaceWith(input);
+    toggle.style.visibility = "hidden";
   });
 }

@@ -24,28 +24,11 @@
 
     <script src="keyboard.js"></script>
     <script>
-      let inputs = document.getElementsByTagName("input");
       let button = document.getElementById("submit");
 
       button.addEventListener("click", () => {
         console.log("submit clicked");
       });
-
-      for (let input of inputs) {
-        input.addEventListener("mouseenter", () => {
-          if (!input.parentNode.id.startsWith("my_wrapper_")) {
-            spawnToggle(input);
-          }
-        });
-
-        input.addEventListener("mouseleave", () => {
-          if (virtualKeyboardIsOpen) {
-            closeVirtualKeyboard();
-          }
-          // let parent = input.parentElement;
-          // parent.replaceWith(input);
-        });
-      }
     </script>
   </body>
 </html>
