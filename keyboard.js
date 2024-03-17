@@ -9,7 +9,7 @@ function renderLetters(virtualKeyboard, input, uppercase) {
   letters = uppercase ? uppercaseLetters : lowercaseLetters;
 
   letters.forEach((letter) => {
-    let letterButton = document.createElement("button");
+    let letterButton = document.createElement("span");
     letterButton.innerText = letter;
     letterButton.className = "virtual_keyboard_letter_button";
 
@@ -22,15 +22,15 @@ function renderLetters(virtualKeyboard, input, uppercase) {
     virtualKeyboard.appendChild(letterButton);
   });
 
-  let shiftbutton = document.createElement("button");
-  shiftbutton.className = "virtual_keyboard_shift_button";
-  shiftbutton.innerText = shiftIsPressed ? "SHIFT" : "Shift";
+  let shiftButton = document.createElement("span");
+  shiftButton.className = "virtual_keyboard_shift_button";
+  shiftButton.innerText = shiftIsPressed ? "SHIFT" : "Shift";
 
-  shiftbutton.addEventListener("click", () => {
+  shiftButton.addEventListener("click", () => {
     onShiftPressed(virtualKeyboard, input);
   });
 
-  virtualKeyboard.appendChild(shiftbutton);
+  virtualKeyboard.appendChild(shiftButton);
 }
 
 function onShiftPressed(virtualKeyboard, input) {
@@ -73,12 +73,14 @@ function createVirtualKeyboardToggle(inputElement) {
   let toggleAnchor = document.createElement("div");
   toggleAnchor.className = "virtual_keyboard_toggle_anchor";
 
-  let toggle = document.createElement("button");
+  let toggle = document.createElement("span");
   toggle.className = "virtual_keyboard_toggle";
   toggle.innerText = "ă…";
 
   toggleAnchor.appendChild(toggle);
-  toggle.addEventListener("click", () => {
+  toggle.addEventListener("click", (event) => {
+    event.stopImmediatePropagation();
+    console.log("click");
     onVirtualKeyboardToggleClick(toggleAnchor, inputElement);
   });
 
@@ -95,19 +97,36 @@ function onVirtualKeyboardToggleClick(toggleAnchor, element) {
   }
 }
 
-let inputs = document.getElementsByTagName("input");
+let inputs = document.querySelectorAll("input,textarea");
 
 for (let input of inputs) {
+  // Circuit-breakers extracted from: https://stackoverflow.com/questions/50628101/use-extension-to-add-button-to-text-field-not-clickable
+
+  if (input.type === "button" || input.type === "submit") {
+    continue;
+  }
+
+  if (!input.contentEditable || !input.type.match(/email|search|text/)) {
+    continue;
+  }
+
+  console.log("created virtual keyboard toggle for input", input);
   let toggle = createVirtualKeyboardToggle(input);
 
-  input.parentElement.addEventListener("mouseenter", () => {
+  input.parentElement.addEventListener("mouseenter", (event) => {
     toggle.style.visibility = "visible";
+    event.stopImmediatePropagation();
   });
 
-  input.parentElement.addEventListener("mouseleave", () => {
+  input.parentElement.addEventListener("mouseleave", (event) => {
     if (virtualKeyboardIsOpen) {
       closeVirtualKeyboard();
     }
     toggle.style.visibility = "hidden";
+    event.stopImmediatePropagation();
+  });
+
+  input.addEventListener("submit", (event) => {
+    console.log("submit fired", input);
   });
 }
