@@ -120,7 +120,7 @@ for (let input of inputs) {
 
   input.parentElement.addEventListener("mouseleave", (event) => {
     if (virtualKeyboardIsOpen) {
-      // closeVirtualKeyboard();
+      closeVirtualKeyboard();
     }
     toggle.style.visibility = "hidden";
     event.stopImmediatePropagation();
