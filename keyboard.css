@@ -1,3 +1,20 @@
+.button {
+  cursor: pointer;
+  color: #393939;
+  background-color: #f4f4f4;
+  border: 1px solid #393939;
+
+  padding: 2px;
+  text-align: center;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 2px;
+}
+
+.button:hover {
+  background-color: #8d8d8d;
+}
+
 .virtual_keyboard_input_wrapper {
   position: relative;
 }
@@ -6,39 +23,31 @@
   position: absolute;
   right: 0px;
   top: 0px;
-  padding: 5px;
 }
 
 .virtual_keyboard_toggle {
-  padding: 5px;
   visibility: hidden;
-  border: 1px solid black;
-  border-radius: 5px;
 }
 
 .virtual_keyboard {
   position: absolute;
   top: 2px;
   left: 18px;
+
   background-color: #ffffff;
-  width: 116px;
-  border: 1px solid black;
+  border: 1px solid rgb(52, 58, 64);
   border-radius: 5px;
-  padding: 3px;
+
+  width: 120px;
+
+  padding: 4px;
+  z-index: 9999;
 }
 
 .virtual_keyboard_letter_button {
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 2px;
-  width: 25px;
+  width: 20px;
 }
 
 .virtual_keyboard_shift_button {
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 2px;
-  width: 83px;
+  width: 80px;
 }

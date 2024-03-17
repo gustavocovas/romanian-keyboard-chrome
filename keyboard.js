@@ -9,9 +9,9 @@ function renderLetters(virtualKeyboard, input, uppercase) {
   letters = uppercase ? uppercaseLetters : lowercaseLetters;
 
   letters.forEach((letter) => {
-    let letterButton = document.createElement("span");
+    let letterButton = document.createElement("div");
     letterButton.innerText = letter;
-    letterButton.className = "virtual_keyboard_letter_button";
+    letterButton.className = "button virtual_keyboard_letter_button";
 
     letterButton.addEventListener("click", () => {
       input.value += letter;
@@ -22,8 +22,8 @@ function renderLetters(virtualKeyboard, input, uppercase) {
     virtualKeyboard.appendChild(letterButton);
   });
 
-  let shiftButton = document.createElement("span");
-  shiftButton.className = "virtual_keyboard_shift_button";
+  let shiftButton = document.createElement("div");
+  shiftButton.className = "button virtual_keyboard_shift_button";
   shiftButton.innerText = shiftIsPressed ? "SHIFT" : "Shift";
 
   shiftButton.addEventListener("click", () => {
@@ -74,7 +74,7 @@ function createVirtualKeyboardToggle(inputElement) {
   toggleAnchor.className = "virtual_keyboard_toggle_anchor";
 
   let toggle = document.createElement("span");
-  toggle.className = "virtual_keyboard_toggle";
+  toggle.className = "button virtual_keyboard_toggle";
   toggle.innerText = "ă…";
 
   toggleAnchor.appendChild(toggle);
@@ -120,7 +120,7 @@ for (let input of inputs) {
 
   input.parentElement.addEventListener("mouseleave", (event) => {
     if (virtualKeyboardIsOpen) {
-      closeVirtualKeyboard();
+      // closeVirtualKeyboard();
     }
     toggle.style.visibility = "hidden";
     event.stopImmediatePropagation();
