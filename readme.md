@@ -1,4 +1,4 @@
-# ![](images/icon-16.png) Simple Romanian Keyboard
+# ![](images/icon-48.png) Simple Romanian Keyboard
 
 ![](images/screenshot.png)
 
