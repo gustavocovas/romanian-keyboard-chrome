@@ -30,9 +30,7 @@
 }
 
 .virtual_keyboard {
-  position: absolute;
-  top: 2px;
-  left: 18px;
+  position: fixed;
 
   background-color: #ffffff;
   border: 1px solid rgb(52, 58, 64);

@@ -47,7 +47,14 @@ function openVirtualKeyboard(anchor, input) {
 
   renderLetters(virtualKeyboard, input);
 
-  anchor.appendChild(virtualKeyboard);
+  let rect = anchor.getBoundingClientRect();
+  let y = rect.top + (rect.bottom - rect.top) / 2;
+  let x = rect.left + (rect.right - rect.left) / 2;
+
+  virtualKeyboard.style.top = y + "px";
+  virtualKeyboard.style.left = x + "px";
+
+  document.body.appendChild(virtualKeyboard);
   virtualKeyboardIsOpen = true;
 }
 
@@ -80,7 +87,6 @@ function createVirtualKeyboardToggle(inputElement) {
   toggleAnchor.appendChild(toggle);
   toggle.addEventListener("click", (event) => {
     event.stopImmediatePropagation();
-    console.log("click");
     onVirtualKeyboardToggleClick(toggleAnchor, inputElement);
   });
 
@@ -110,7 +116,6 @@ for (let input of inputs) {
     continue;
   }
 
-  console.log("created virtual keyboard toggle for input", input);
   let toggle = createVirtualKeyboardToggle(input);
 
   input.parentElement.addEventListener("mouseenter", (event) => {
@@ -122,11 +127,10 @@ for (let input of inputs) {
     if (virtualKeyboardIsOpen) {
       closeVirtualKeyboard();
     }
-    toggle.style.visibility = "hidden";
-    event.stopImmediatePropagation();
-  });
+    if (!virtualKeyboardIsOpen) {
+      toggle.style.visibility = "hidden";
+    }
 
-  input.addEventListener("submit", (event) => {
-    console.log("submit fired", input);
+    event.stopImmediatePropagation();
   });
 }
