@@ -41,9 +41,16 @@ function onShiftPressed(virtualKeyboard, input) {
 
 function openVirtualKeyboard(anchor, input) {
   let virtualKeyboard = document.createElement("div");
+  let virtualKeyboardOverlay = document.createElement("div");
 
   virtualKeyboard.id = "virtualKeyboard";
   virtualKeyboard.className = "virtual_keyboard";
+
+  virtualKeyboardOverlay.id = "virtualKeyboardOverlay";
+  virtualKeyboardOverlay.className = "virtual_keyboard_overlay";
+  virtualKeyboardOverlay.addEventListener("click", () => {
+    closeVirtualKeyboard();
+  });
 
   renderLetters(virtualKeyboard, input);
 
@@ -54,12 +61,14 @@ function openVirtualKeyboard(anchor, input) {
   virtualKeyboard.style.top = y + "px";
   virtualKeyboard.style.left = x + "px";
 
+  document.body.appendChild(virtualKeyboardOverlay);
   document.body.appendChild(virtualKeyboard);
   virtualKeyboardIsOpen = true;
 }
 
 function closeVirtualKeyboard() {
   document.getElementById("virtualKeyboard").remove();
+  document.getElementById("virtualKeyboardOverlay").remove();
 
   virtualKeyboardIsOpen = false;
   shiftIsPressed = false;
@@ -124,9 +133,6 @@ for (let input of inputs) {
   });
 
   input.parentElement.addEventListener("mouseleave", (event) => {
-    if (virtualKeyboardIsOpen) {
-      closeVirtualKeyboard();
-    }
     if (!virtualKeyboardIsOpen) {
       toggle.style.visibility = "hidden";
     }
