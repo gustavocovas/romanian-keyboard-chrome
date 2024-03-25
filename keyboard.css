@@ -49,3 +49,13 @@
 .virtual_keyboard_shift_button {
   width: 80px;
 }
+
+.virtual_keyboard_overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
